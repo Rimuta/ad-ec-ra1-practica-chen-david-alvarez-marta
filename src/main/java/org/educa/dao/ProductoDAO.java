@@ -10,8 +10,10 @@ import java.util.List;
 
 public interface ProductoDAO {
 
+    //Las funciones que vamos a utilizar
     List<Producto> getProductos(String pathXML) throws JAXBException;
     List<ProductoEntity> getDatos(String fileXml) throws JAXBException;
     String getSummaryResume(String path, String fileXml) throws JAXBException, IOException;
+    void exportarExcel(String path, String fileXml) throws JAXBException, IOException, ParseException;
 
 }
