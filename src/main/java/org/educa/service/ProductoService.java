@@ -1,6 +1,8 @@
 package org.educa.service;
 
 import jakarta.xml.bind.JAXBException;
+import org.educa.dao.ProductoDAO;
+import org.educa.dao.ProductoDAOInterface;
 import org.educa.entity.ProductoEntity;
 
 import java.io.IOException;
