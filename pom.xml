@@ -31,7 +31,6 @@
             <artifactId>jaxb-xjc</artifactId>
             <version>4.0.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
