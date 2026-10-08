@@ -18,11 +18,13 @@ public class ProductoService {
         List<ProductoEntity> productoEntities = productoDAO.getDatos(fileXml);
         return productoEntities;
     }
+
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         System.out.println("Lo que vas a ggetuardar es lo siguiente: ");
-        System.out.println(productoDAO.getSummaryResume(path,fileXml));
+        System.out.println(productoDAO.getSummaryResume(path, fileXml));
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
+        productoDAO.exportarExcel(path, fileXml);
     }
 }
