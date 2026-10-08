@@ -13,8 +13,7 @@ public class ProductoService {
     private final ProductoDAO productoDAO = new ProductoDAOInterface();
 
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
-        List<ProductoEntity> productoEntities = productoDAO.getDatos(fileXml);
-        return productoEntities;
+
     }
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
 
