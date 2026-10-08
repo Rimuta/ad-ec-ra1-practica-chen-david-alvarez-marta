@@ -299,6 +299,7 @@ public class ProductoDAOInterface implements ProductoDAO {
                     beneficio.setCellValue(productoEntity.getProfit().doubleValue() + "€");
                     beneficio.setCellStyle(estilo2);
                 }
+                //Hacer que la columna se auto ajuste a la longitud del texto
                 hoja.autoSizeColumn(contador);
             }
             //exportar el .xlxs
