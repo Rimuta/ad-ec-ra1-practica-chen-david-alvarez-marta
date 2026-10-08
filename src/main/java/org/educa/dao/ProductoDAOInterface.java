@@ -53,4 +53,54 @@ public class ProductoDAOInterface implements ProductoDAO {
         }
         return productoEntities;
     }
+    @Override
+    public String getSummaryResume(String path, String fileXml) throws JAXBException, IOException {
+        try {
+
+            StringBuilder resumen = new StringBuilder();
+
+            //creacion de la carpeta faltante(export)
+            File directory = new File(path);
+            directory.getAbsoluteFile().mkdirs();
+
+            int contador = 0;
+            BigDecimal beneficioT = new BigDecimal("0.00");
+
+            for (Producto producto : getProductos(fileXml)) {
+                BigDecimal precio = producto.getPrecio();
+                BigDecimal descuento = producto.getDescuento();
+                BigDecimal coste = producto.getCostes().getCostesEnvio().add(producto.getCostes().getCostesAlmacenaje());
+                BigDecimal precioFinal = precio.subtract(precio.multiply(descuento).divide(BigDecimal.valueOf(100))).setScale(2, RoundingMode.HALF_UP);
+
+                beneficioT = beneficioT.add(precioFinal.subtract(coste));
+                contador++;
+            }
+
+            String date = fileXml.substring(fileXml.indexOf("_") + 1, fileXml.lastIndexOf("."));
+            String nameWithOutExtension = "result_" + date;
+            String nameWithExtension = "resul_" + date + ".txt";
+
+            File xml = new File(fileXml);
+            long fileSize = xml.length();
+
+            File summary = new File(path, nameWithExtension);
+            summary.createNewFile();
+
+            SummaryEntity summaryEntity = new SummaryEntity(date, contador, beneficioT, fileXml, nameWithOutExtension, fileSize);
+
+            resumen.append("Fecha: ").append(date).append("\n").append("NumeroDeProductos: ").append(contador).append("\n")
+                    .append("BeneficioTotal: ").append(beneficioT).append("\n").append("Ruta del fichero: ").append(fileXml).append("\n")
+                    .append("Nombre de fichero: ").append(nameWithOutExtension).append("\n").append("Tamano del fichero: ").append(fileSize);
+
+            try (PrintWriter pw = new PrintWriter(new FileWriter(summary, true))) {
+                pw.println(summaryEntity.toPrint());
+                return resumen.toString();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (JAXBException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
