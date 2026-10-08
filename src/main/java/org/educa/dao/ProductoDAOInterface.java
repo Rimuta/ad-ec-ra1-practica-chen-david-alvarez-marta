@@ -101,6 +101,113 @@ public class ProductoDAOInterface implements ProductoDAO {
         } catch (JAXBException | IOException e) {
             throw new RuntimeException(e);
         }
-    }
 
+    }
+    public void exportarExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
+        try {
+            int contador = 0;
+            StringBuilder nombreFichero = new StringBuilder();
+            nombreFichero.append("export_").append(fileXml.substring(fileXml.indexOf("_") + 1, fileXml.lastIndexOf("."))).append(".xlsx");
+            File rute = new File(path, nombreFichero.toString());
+
+            //Creacion del libro
+            XSSFWorkbook factura = new XSSFWorkbook();
+            //Creacion de la hoja
+            XSSFSheet hoja = factura.createSheet("Factura");
+            //Creacion de las filas
+            XSSFRow fila = hoja.createRow(0);
+            //Creacion de la celda
+            XSSFCell celda = fila.createCell(0);
+            XSSFCell celda1 = fila.createCell(1);
+            XSSFCell celda2 = fila.createCell(2);
+            XSSFCell celda3 = fila.createCell(3);
+            XSSFCell celda4 = fila.createCell(4);
+            XSSFCell celda5 = fila.createCell(5);
+            XSSFCell celda6 = fila.createCell(6);
+            XSSFCell celda7 = fila.createCell(7);
+
+
+            //Configuracion de estilos 1
+            XSSFCellStyle estilo = factura.createCellStyle();
+            XSSFFont letras = factura.createFont();
+
+            letras.setBold(true);
+
+            estilo.setFont(letras);
+            estilo.setBorderRight(BorderStyle.THICK);
+            estilo.setBorderBottom(BorderStyle.THICK);
+            estilo.setBorderLeft(BorderStyle.THICK);
+            estilo.setBorderTop(BorderStyle.THICK);
+
+            estilo.setBottomBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo.setRightBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo.setTopBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo.setLeftBorderColor(IndexedColors.DARK_GREEN.getIndex());
+
+            //Configuracion de estilos 2
+            XSSFCellStyle estilo2 = factura.createCellStyle();
+
+            estilo2.setBorderRight(BorderStyle.THICK);
+            estilo2.setBorderBottom(BorderStyle.THICK);
+            estilo2.setBorderLeft(BorderStyle.THICK);
+            estilo2.setBorderTop(BorderStyle.THICK);
+
+            estilo2.setBottomBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo2.setRightBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo2.setTopBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo2.setLeftBorderColor(IndexedColors.DARK_GREEN.getIndex());
+
+            estilo2.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+            estilo2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            //estilo 3
+            XSSFCellStyle estilo3 = factura.createCellStyle();
+            estilo3.setFont(letras);
+
+            estilo3.setBorderRight(BorderStyle.THICK);
+            estilo3.setBorderBottom(BorderStyle.THICK);
+            estilo3.setBorderLeft(BorderStyle.THICK);
+            estilo3.setBorderTop(BorderStyle.THICK);
+
+            estilo3.setBottomBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo3.setRightBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo3.setTopBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo3.setLeftBorderColor(IndexedColors.DARK_GREEN.getIndex());
+
+            estilo3.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+            estilo3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            //Configuracion de estilos 4
+            XSSFCellStyle estilo4 = factura.createCellStyle();
+
+            estilo4.setBorderRight(BorderStyle.THICK);
+            estilo4.setBorderBottom(BorderStyle.THICK);
+            estilo4.setBorderLeft(BorderStyle.THICK);
+            estilo4.setBorderTop(BorderStyle.THICK);
+
+            estilo4.setBottomBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo4.setRightBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo4.setTopBorderColor(IndexedColors.DARK_GREEN.getIndex());
+            estilo4.setLeftBorderColor(IndexedColors.DARK_GREEN.getIndex());
+
+            celda.setCellValue("Codigo");
+            celda.setCellStyle(estilo);
+            celda1.setCellValue("Numero de Serie");
+            celda1.setCellStyle(estilo);
+            celda2.setCellValue("Precio");
+            celda2.setCellStyle(estilo);
+            celda3.setCellValue("Descuento");
+            celda3.setCellStyle(estilo);
+            celda4.setCellValue("Precio Final");
+            celda4.setCellStyle(estilo);
+            celda5.setCellValue("Coste envio");
+            celda5.setCellStyle(estilo);
+            celda6.setCellValue("Coste almacenaje");
+            celda6.setCellStyle(estilo);
+            celda7.setCellValue("Precio");
+            celda7.setCellStyle(estilo);
+        }catch (JAXBException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
